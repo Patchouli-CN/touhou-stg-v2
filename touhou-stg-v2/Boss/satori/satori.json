@@ -1,0 +1,367 @@
+{
+  "phases": [
+    {
+      "name": "第一阶段 - 节奏感知",
+      "health": 500,
+      "spellCard": {
+        "name": "",
+        "isTimed": false
+      },
+      "time": 60,
+      "movePattern": "circle",
+      "moveSpeed": 80,
+      "rhythm": {
+        "type": "beat",
+        "subdivision": 1
+      },
+      "attackPatterns": [
+        {
+          "type": "kick",
+          "pattern": "StarDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 1
+          },
+          "params": {
+            "count": 5,
+            "spreadAngle": 60,
+            "speed": 180,
+            "color": "#ffd700",
+            "size": 8,
+            "bulletType": "star"
+          },
+          "strengthMultiplier": 1.0
+        },
+        {
+          "type": "snare",
+          "pattern": "ArrowDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 2
+          },
+          "params": {
+            "count": 3,
+            "spreadAngle": 30,
+            "speed": 280,
+            "color": "#ff4444",
+            "size": 6,
+            "bulletType": "arrow"
+          },
+          "strengthMultiplier": 1.0
+        },
+        {
+          "type": "hihat",
+          "pattern": "RandomDanmaku",
+          "rhythm": {
+            "type": "drum"
+          },
+          "params": {
+            "count": 8,
+            "spreadAngle": 120,
+            "speed": 200,
+            "color": "#ff88cc",
+            "size": 4,
+            "bulletType": "small"
+          },
+          "strengthMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "name": "第二阶段 - 想起「恐怖的回忆」",
+      "health": 800,
+      "spellCard": {
+        "name": "想起「恐怖的回忆」",
+        "isTimed": true,
+        "image": "satori_normal.png"
+      },
+      "time": 70,
+      "movePattern": "figure8",
+      "moveSpeed": 90,
+      "rhythm": {
+        "type": "beat",
+        "subdivision": 2
+      },
+      "attackPatterns": [
+        {
+          "type": "kick",
+          "pattern": "SpiralDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 1
+          },
+          "params": {
+            "arms": 3,
+            "bulletsPerArm": 8,
+            "speed": 160,
+            "color": "#9b59b6",
+            "size": 8,
+            "bulletType": "star",
+            "spinSpeed": 2.0
+          },
+          "strengthMultiplier": 1.2
+        },
+        {
+          "type": "snare",
+          "pattern": "MagicCircleDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 2
+          },
+          "params": {
+            "count": 16,
+            "speed": 160,
+            "color": "#ff69b4",
+            "size": 10,
+            "bulletType": "ball",
+            "spinSpeed": 0.5
+          },
+          "strengthMultiplier": 1.0
+        },
+        {
+          "type": "hihat",
+          "pattern": "RandomDanmaku",
+          "rhythm": {
+            "type": "continuous",
+            "subdivision": 4
+          },
+          "params": {
+            "count": 3,
+            "speed": 120,
+            "color": "#ff00ff",
+            "size": 6,
+            "bulletType": "arrow",
+            "homingStrength": 0.08
+          },
+          "strengthMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "name": "第三阶段 - 想起「究极魔炮」",
+      "health": 1200,
+      "spellCard": {
+        "name": "想起「究极魔炮」",
+        "isTimed": true,
+        "image": "satori_normal.png"
+      },
+      "time": 80,
+      "movePattern": "random",
+      "moveSpeed": 100,
+      "rhythm": {
+        "type": "measure",
+        "subdivision": 1
+      },
+      "attackPatterns": [
+        {
+          "type": "kick",
+          "pattern": "MasterSparkDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 2
+          },
+          "params": {
+            "count": 4,
+            "speed": 400,
+            "color": "#00ff00",
+            "size": 6,
+            "bulletType": "laser",
+            "laserWidth": 40
+          },
+          "strengthMultiplier": 1.5
+        },
+        {
+          "type": "snare",
+          "pattern": "BounceDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 2
+          },
+          "params": {
+            "count": 6,
+            "speed": 200,
+            "color": "#ff8800",
+            "size": 8,
+            "bulletType": "bounce",
+            "bounceCount": 3
+          },
+          "strengthMultiplier": 1.2
+        },
+        {
+          "type": "hihat",
+          "pattern": "SplitDanmaku",
+          "rhythm": {
+            "type": "continuous",
+            "subdivision": 8
+          },
+          "params": {
+            "count": 4,
+            "speed": 150,
+            "color": "#00ffff",
+            "size": 10,
+            "bulletType": "split",
+            "splitCount": 3,
+            "splitDelay": 1.5
+          },
+          "strengthMultiplier": 1.0
+        }
+      ]
+    },
+    {
+      "name": "第四阶段 - 想起「地底の深淵」",
+      "health": 1500,
+      "spellCard": {
+        "name": "想起「地底の深淵」",
+        "isTimed": true,
+        "image": "satori_normal.png"
+      },
+      "time": 90,
+      "movePattern": "circle",
+      "moveSpeed": 120,
+      "rhythm": {
+        "type": "accent",
+        "subdivision": 2
+      },
+      "attackPatterns": [
+        {
+          "type": "kick",
+          "pattern": "FlowerDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 1
+          },
+          "params": {
+            "petals": 6,
+            "density": 8,
+            "speed": 140,
+            "color": "#ff69b4",
+            "size": 7,
+            "bulletType": "ball"
+          },
+          "strengthMultiplier": 1.3
+        },
+        {
+          "type": "snare",
+          "pattern": "WaveDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 2
+          },
+          "params": {
+            "count": 12,
+            "speed": 180,
+            "color": "#ff1493",
+            "size": 6,
+            "bulletType": "ball",
+            "waveAmp": 0.5
+          },
+          "strengthMultiplier": 1.1
+        },
+        {
+          "type": "hihat",
+          "pattern": "StarDanmaku",
+          "rhythm": {
+            "type": "continuous",
+            "subdivision": 6
+          },
+          "params": {
+            "count": 4,
+            "spreadAngle": 45,
+            "speed": 200,
+            "color": "#ffd700",
+            "size": 6,
+            "bulletType": "star"
+          },
+          "strengthMultiplier": 0.9
+        }
+      ]
+    },
+    {
+      "name": "第五阶段 - 想起「核融合」",
+      "health": 2000,
+      "spellCard": {
+        "name": "想起「核融合」",
+        "isTimed": true,
+        "image": "satori_normal.png"
+      },
+      "time": 100,
+      "movePattern": "random",
+      "moveSpeed": 150,
+      "rhythm": {
+        "type": "measure",
+        "subdivision": 2
+      },
+      "attackPatterns": [
+        {
+          "type": "kick",
+          "pattern": "SpiralDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 1
+          },
+          "params": {
+            "arms": 5,
+            "bulletsPerArm": 12,
+            "speed": 200,
+            "color": "#e74c3c",
+            "size": 8,
+            "bulletType": "star",
+            "spinSpeed": 3.0
+          },
+          "strengthMultiplier": 1.5
+        },
+        {
+          "type": "snare",
+          "pattern": "MagicCircleDanmaku",
+          "rhythm": {
+            "type": "beat",
+            "subdivision": 2
+          },
+          "params": {
+            "count": 24,
+            "speed": 180,
+            "color": "#9b59b6",
+            "size": 12,
+            "bulletType": "ball",
+            "spinSpeed": 1.0
+          },
+          "strengthMultiplier": 1.3
+        },
+        {
+          "type": "hihat",
+          "pattern": "RandomDanmaku",
+          "rhythm": {
+            "type": "continuous",
+            "subdivision": 8
+          },
+          "params": {
+            "count": 5,
+            "speed": 150,
+            "color": "#3498db",
+            "size": 6,
+            "bulletType": "small",
+            "homingStrength": 0.12
+          },
+          "strengthMultiplier": 1.1
+        },
+        {
+          "type": "accent",
+          "pattern": "MasterSparkDanmaku",
+          "rhythm": {
+            "type": "accent",
+            "subdivision": 1
+          },
+          "params": {
+            "count": 6,
+            "speed": 500,
+            "color": "#ff0000",
+            "size": 8,
+            "bulletType": "laser",
+            "laserWidth": 50
+          },
+          "strengthMultiplier": 2.0
+        }
+      ]
+    }
+  ]
+}

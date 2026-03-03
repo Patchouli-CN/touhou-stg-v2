@@ -1,0 +1,13 @@
+
+
+# vscode
+
+.vscode/
+
+# python
+
+dist/
+
+# my ignore
+
+ignore/

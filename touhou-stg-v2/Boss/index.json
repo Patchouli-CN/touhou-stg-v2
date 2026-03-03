@@ -1,0 +1,12 @@
+{
+  "bosses": [
+    {
+      "id": "satori",
+      "name": "古明地觉",
+      "path": "Boss/satori/",
+      "icon": "satori_icon.png",
+      "description": "怨灵也为之惧怯的少女",
+      "difficulty": 3
+    }
+  ]
+}

@@ -1,0 +1,1185 @@
+/* ===== CSS变量 ===== */
+:root {
+    --primary: #e74c3c;
+    --primary-dark: #c0392b;
+    --secondary: #9b59b6;
+    --accent: #f39c12;
+    --bg-dark: #0a0a0f;
+    --bg-panel: rgba(20, 15, 30, 0.95);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --border-color: rgba(231, 76, 60, 0.3);
+    --shadow-glow: 0 0 20px rgba(231, 76, 60, 0.4);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 基础重置 ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    overflow: hidden;
+    line-height: 1.6;
+}
+
+/* ===== 应用布局 ===== */
+#app {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    overflow: hidden;
+}
+
+/* ===== 侧边栏 ===== */
+#sidebar {
+    width: 380px;
+    height: 100vh;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border-color);
+    position: relative;
+    transition: var(--transition);
+    flex-shrink: 0;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+}
+
+#sidebar.collapsed {
+    width: 60px;
+}
+
+#sidebar.collapsed .sidebarContent {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.sidebarToggle {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: var(--transition);
+    box-shadow: var(--shadow-glow);
+}
+
+.sidebarToggle:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 0 30px rgba(231, 76, 60, 0.6);
+}
+
+.toggleIcon {
+    font-size: 20px;
+    filter: grayscale(1) brightness(2);
+}
+
+.sidebarContent {
+    height: 100%;
+    overflow-y: auto;
+    padding: 25px;
+    padding-top: 70px;
+    transition: opacity 0.3s ease;
+}
+
+.sidebarContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebarContent::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+.sidebarContent::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.sidebarHeader {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebarTitle {
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(231, 76, 60, 0.3);
+}
+
+.sidebarSubtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ===== 配置区块 ===== */
+.configSection {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+.configSection:hover {
+    border-color: var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sectionTitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sectionIcon {
+    font-size: 16px;
+}
+
+/* ===== Boss选择 ===== */
+.bossSelector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.bossLoading {
+    grid-column: span 2;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.bossCard {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.bossCard:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+}
+
+.bossCard.active {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(155, 89, 182, 0.2));
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.bossIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.bossName {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.bossTitle {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* ===== 按键设置 ===== */
+.keyConfig {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.keyRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.keyLabel {
+    width: 50px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-family: monospace;
+}
+
+.keyGroup {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.keyInput {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 8px;
+    color: var(--text-primary);
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    transition: var(--transition);
+}
+
+.keyInput:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.keyInput.listening {
+    border-color: var(--accent);
+    background: rgba(243, 156, 18, 0.1);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.keyBindBtn {
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-size: 11px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.keyBindBtn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.textBtn {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.textBtn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* ===== 设置行 ===== */
+.settingGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.settingRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.settingLabel {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.selectWrapper {
+    position: relative;
+}
+
+.settingSelect {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    padding: 8px 30px 8px 12px;
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    min-width: 120px;
+    appearance: none;
+    transition: var(--transition);
+}
+
+.settingSelect:hover {
+    border-color: var(--primary);
+}
+
+.selectWrapper::after {
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 8px;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.sliderGroup {
+    margin-bottom: 15px;
+}
+
+.settingSlider {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    outline: none;
+    margin-top: 8px;
+}
+
+.settingSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    transition: var(--transition);
+}
+
+.settingSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.sliderValue {
+    font-size: 11px;
+    color: var(--primary);
+    font-family: 'Courier New', monospace;
+}
+
+/* ===== 复选框 ===== */
+.checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.checkboxLabel:hover {
+    color: var(--text-primary);
+}
+
+.checkboxLabel input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.checkboxLabel input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.checkboxLabel input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ===== 背景预设 ===== */
+.bgOptions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.bgPreset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.bgPreset:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.bgPreset.active {
+    border-color: var(--primary);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.bgThumb {
+    width: 100%;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bgThumb.customBg {
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.bgPreset span {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.bgPreset.active span {
+    color: var(--primary);
+}
+
+/* ===== 侧边栏底部 ===== */
+.sidebarFooter {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.saveBtn, .resetBtn {
+    flex: 1;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
+
+.saveBtn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
+.saveBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(231, 76, 60, 0.5);
+}
+
+.resetBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+}
+
+.resetBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+/* ===== 游戏容器 ===== */
+#gameContainer {
+    flex: 1;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+/* ===== UI层 ===== */
+#uiLayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    padding: 20px;
+}
+
+/* ===== HUD面板 ===== */
+.hudPanel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.hudSection {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 180px;
+}
+
+.scoreDisplay {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.scoreDisplay:last-child {
+    margin-bottom: 0;
+}
+
+.label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.value {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.resourceDisplay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.resourceDisplay:last-child {
+    margin-bottom: 0;
+}
+
+.resourceValue {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ===== Boss面板 ===== */
+.bossPanel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    padding: 15px;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.bossHeader {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.bossName {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.bossTitle {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.bossHealthBar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.healthFill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.spellCardInfo {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+/* ===== 鼓点可视化 ===== */
+#drumVisualizer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.drumTrack {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.drumLabel {
+    font-size: 10px;
+    color: var(--text-secondary);
+    width: 50px;
+    text-align: right;
+    font-family: monospace;
+}
+
+.drumBar {
+    width: 100px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.drumBar.active {
+    background: var(--primary);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+}
+
+/* ===== 音乐信息 ===== */
+.musicPanel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.musicIcon {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+.musicDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.musicName {
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.musicMeta {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* ===== FPS显示 ===== */
+#fpsDisplay {
+    position: absolute;
+    top: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #2ecc71;
+    font-family: 'Courier New', monospace;
+}
+
+/* ===== 菜单覆盖层 ===== */
+.menuOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.menuFrame {
+    background: linear-gradient(135deg, rgba(30, 25, 50, 0.95), rgba(20, 15, 35, 0.95));
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 50px;
+    text-align: center;
+    min-width: 400px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.menuHeader {
+    margin-bottom: 40px;
+}
+
+.gameTitle {
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(231, 76, 60, 0.3);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    letter-spacing: 3px;
+}
+
+.menuTitle {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+.menuTitle.gameOver {
+    color: #e74c3c;
+    text-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+}
+
+.menuTitle.pause {
+    color: #f39c12;
+    text-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+}
+
+/* ===== 菜单按钮 ===== */
+.menuOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.menuOptions.vertical {
+    flex-direction: column;
+}
+
+.menuBtn {
+    position: relative;
+    padding: 16px 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.menuBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.menuBtn.primary {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(155, 89, 182, 0.2));
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.menuBtn.primary:hover {
+    background: linear-gradient(135deg, rgba(231, 76, 60, 0.3), rgba(155, 89, 182, 0.3));
+    box-shadow: 0 0 30px rgba(231, 76, 60, 0.6);
+}
+
+.btnGlow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(231, 76, 60, 0.4) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.menuBtn:hover .btnGlow {
+    opacity: 1;
+}
+
+.btnText {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== 操作说明 ===== */
+.controlsInfo {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.controlsInfo h4 {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.controlGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.controlItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.controlItem kbd {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+}
+
+/* ===== 最终得分 ===== */
+.finalScore {
+    margin-bottom: 30px;
+}
+
+.scoreLabel {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.scoreNumber {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--primary);
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+}
+
+/* ===== 工具类 ===== */
+.hidden {
+    display: none !important;
+}
+
+/* ===== 音频信息 ===== */
+.audioInfo {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.infoGrid {
+    display: grid;
+    gap: 10px;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+}
+
+.infoLabel {
+    color: var(--text-secondary);
+    min-width: 60px;
+}
+
+.infoValue {
+    color: var(--text-primary);
+    font-weight: 600;
+    flex: 1;
+}
+
+.bpmDisplay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--primary);
+}
+
+.bpmLabel {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.bpmNumber {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--primary);
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+/* ===== 对话容器 ===== */
+.dialogContainer {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid rgba(231, 76, 60, 0.5);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: none;
+    z-index: 50;
+}
+
+.dialogContent {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.bossDialogArea, .playerDialogArea {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.portraitContainer {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.bossPortrait, .playerPortrait {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bossPortrait img, .playerPortrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nameTag {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.bossNameTag {
+    background: rgba(231, 76, 60, 0.3);
+    color: var(--primary);
+}
+
+.playerNameTag {
+    background: rgba(52, 152, 219, 0.3);
+    color: #3498db;
+}
+
+.dialogBubble {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    padding: 12px 15px;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.dialogProgress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.progressDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.progressDot.active {
+    background: var(--primary);
+}
+
+.progressDot.past {
+    background: var(--accent);
+}
+
+.skipHint {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 10px;
+}
+
+/* ===== 符卡立绘 ===== */
+#spell-portrait-overlay {
+    pointer-events: none;
+}
+
+#spell-portrait {
+    pointer-events: none;
+}
+
+#spell-card {
+    pointer-events: none;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 1024px) {
+    #sidebar {
+        width: 320px;
+    }
+    
+    .bossSelector {
+        grid-template-columns: 1fr;
+    }
+    
+    .controlGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #app {
+        flex-direction: column;
+    }
+    
+    #sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 40vh;
+    }
+    
+    #sidebar.collapsed {
+        width: 100%;
+        height: 60px;
+    }
+    
+    #gameContainer {
+        height: 60vh;
+    }
+}

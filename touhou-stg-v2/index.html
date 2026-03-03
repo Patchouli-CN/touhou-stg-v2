@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东方STG - 节奏弹幕 ~ 地灵殿篇</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- 侧边栏配置面板 -->
+        <aside id="sidebar" class="collapsed">
+            <button class="sidebarToggle" id="sidebarToggle" aria-label="打开设置">
+                <span class="toggleIcon">⚙️</span>
+            </button>
+            
+            <div class="sidebarContent">
+                <header class="sidebarHeader">
+                    <h2 class="sidebarTitle">游戏设置</h2>
+                    <div class="sidebarSubtitle">东方节奏弹幕</div>
+                </header>
+
+                <!-- Boss选择板块 -->
+                <section class="configSection">
+                    <h3 class="sectionTitle">
+                        <span class="sectionIcon">👾</span>
+                        Boss选择
+                    </h3>
+                    
+                    <div class="bossSelector" id="bossSelector">
+                        <!-- Boss列表将通过JavaScript动态生成 -->
+                        <div class="bossLoading">加载Boss列表中...</div>
+                    </div>
+                    
+                    <div id="selectedBossInfo" class="audioInfo hidden">
+                        <div class="infoGrid">
+                            <div class="infoItem">
+                                <span class="infoLabel">Boss</span>
+                                <span id="selectedBossName" class="infoValue">--</span>
+                            </div>
+                            <div class="infoItem">
+                                <span class="infoLabel">称号</span>
+                                <span id="selectedBossTitle" class="infoValue">--</span>
+                            </div>
+                            <div class="infoItem">
+                                <span class="infoLabel">版本</span>
+                                <span id="selectedBossVersion" class="infoValue">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bpmDisplay">
+                        <span class="bpmLabel">当前Boss</span>
+                        <span id="currentBossName" class="bpmNumber">古明地觉</span>
+                    </div>
+                </section>
+                
+                <!-- 按键设置 -->
+                <section class="configSection">
+                    <h3 class="sectionTitle">
+                        <span class="sectionIcon">🎮</span>
+                        按键设置
+                    </h3>
+                    
+                    <div class="keyConfig">
+                        <div class="keyRow">
+                            <kbd class="keyLabel">移动</kbd>
+                            <div class="keyGroup">
+                                <input type="text" class="keyInput" id="keyUp" value="↑" readonly>
+                                <input type="text" class="keyInput" id="keyDown" value="↓" readonly>
+                                <input type="text" class="keyInput" id="keyLeft" value="←" readonly>
+                                <input type="text" class="keyInput" id="keyRight" value="→" readonly>
+                            </div>
+                            <button class="keyBindBtn" data-action="move" type="button">修改</button>
+                        </div>
+                        <div class="keyRow">
+                            <kbd class="keyLabel">射击</kbd>
+                            <input type="text" class="keyInput" id="keyShoot" value="Z" readonly>
+                            <button class="keyBindBtn" data-action="shoot" type="button">修改</button>
+                        </div>
+                        <div class="keyRow">
+                            <kbd class="keyLabel">炸弹</kbd>
+                            <input type="text" class="keyInput" id="keyBomb" value="X" readonly>
+                            <button class="keyBindBtn" data-action="bomb" type="button">修改</button>
+                        </div>
+                        <div class="keyRow">
+                            <kbd class="keyLabel">低速</kbd>
+                            <input type="text" class="keyInput" id="keyFocus" value="Shift" readonly>
+                            <button class="keyBindBtn" data-action="focus" type="button">修改</button>
+                        </div>
+                        <div class="keyRow">
+                            <kbd class="keyLabel">暂停</kbd>
+                            <input type="text" class="keyInput" id="keyPause" value="Esc" readonly>
+                            <button class="keyBindBtn" data-action="pause" type="button">修改</button>
+                        </div>
+                    </div>
+                    
+                    <button id="resetKeysBtn" class="textBtn" type="button">恢复默认按键</button>
+                </section>
+                
+                <!-- 游戏设置 -->
+                <section class="configSection">
+                    <h3 class="sectionTitle">
+                        <span class="sectionIcon">⚙️</span>
+                        游戏设置
+                    </h3>
+                    
+                    <div class="settingGroup">
+                        <div class="settingRow">
+                            <label class="settingLabel" for="hitboxSelect">判定模式</label>
+                            <div class="selectWrapper">
+                                <select id="hitboxSelect" class="settingSelect">
+                                    <option value="loose">宽判 (简单)</option>
+                                    <option value="normal" selected>标判 (普通)</option>
+                                    <option value="strict">严判 (困难)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="settingRow">
+                            <label class="settingLabel" for="bgEffectSelect">背景效果</label>
+                            <div class="selectWrapper">
+                                <select id="bgEffectSelect" class="settingSelect">
+                                    <option value="stars" selected>星空</option>
+                                    <option value="magic">魔法阵</option>
+                                    <option value="none">无</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sliderGroup">
+                        <div class="settingRow">
+                            <label class="settingLabel" for="bgBrightness">背景亮度</label>
+                            <span class="sliderValue" id="bgBrightnessValue">70%</span>
+                        </div>
+                        <input type="range" id="bgBrightness" min="0.3" max="1" step="0.1" value="0.7" class="settingSlider">
+                    </div>
+                    
+                    <div class="sliderGroup">
+                        <div class="settingRow">
+                            <label class="settingLabel" for="sfxVolume">音效音量</label>
+                            <span class="sliderValue" id="sfxVolumeValue">70%</span>
+                        </div>
+                        <input type="range" id="sfxVolume" min="0" max="1" step="0.1" value="0.7" class="settingSlider">
+                    </div>
+                    
+                    <div class="sliderGroup">
+                        <div class="settingRow">
+                            <label class="settingLabel" for="musicVolume">音乐音量</label>
+                            <span class="sliderValue" id="musicVolumeValue">70%</span>
+                        </div>
+                        <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.7" class="settingSlider">
+                    </div>
+                </section>
+                
+                <!-- 背景设置 -->
+                <section class="configSection">
+                    <h3 class="sectionTitle">
+                        <span class="sectionIcon">🖼️</span>
+                        背景设置
+                    </h3>
+                    
+                    <div class="bgOptions">
+                        <button class="bgPreset active" data-bg="default" type="button">
+                            <div class="bgThumb" style="background: linear-gradient(180deg, #2d1b4e, #1a0f2e);"></div>
+                            <span>默认</span>
+                        </button>
+                        <button class="bgPreset" data-bg="palace" type="button">
+                            <div class="bgThumb" style="background: linear-gradient(180deg, #4a1a4a, #1a0a1a);"></div>
+                            <span>地灵殿</span>
+                        </button>
+                        <button class="bgPreset" data-bg="underground" type="button">
+                            <div class="bgThumb" style="background: linear-gradient(180deg, #1a1a2e, #0a0a1a);"></div>
+                            <span>地下</span>
+                        </button>
+                        <button class="bgPreset" data-bg="custom" type="button">
+                            <div class="bgThumb customBg">
+                                <span>+</span>
+                            </div>
+                            <span>自定义</span>
+                        </button>
+                    </div>
+                    
+                    <input type="file" id="bgUpload" accept="image/*" hidden>
+                    
+                    <div class="sliderGroup">
+                        <div class="settingRow">
+                            <label class="settingLabel" for="bgBlur">背景模糊</label>
+                            <span class="sliderValue" id="bgBlurValue">0px</span>
+                        </div>
+                        <input type="range" id="bgBlur" min="0" max="10" step="1" value="0" class="settingSlider">
+                    </div>
+                    
+                    <label class="checkboxLabel">
+                        <input type="checkbox" id="bgParallax" checked>
+                        <span class="checkmark"></span>
+                        <span>视差滚动效果</span>
+                    </label>
+                </section>
+                
+                <!-- 显示设置 -->
+                <section class="configSection">
+                    <h3 class="sectionTitle">
+                        <span class="sectionIcon">👁️</span>
+                        显示设置
+                    </h3>
+                    
+                    <div class="checkboxGroup">
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="showHitbox" checked>
+                            <span class="checkmark"></span>
+                            <span>显示判定点</span>
+                        </label>
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="showFps" checked>
+                            <span class="checkmark"></span>
+                            <span>显示FPS</span>
+                        </label>
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="showBeatIndicator" checked>
+                            <span class="checkmark"></span>
+                            <span>节拍指示器</span>
+                        </label>
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="screenShake" checked>
+                            <span class="checkmark"></span>
+                            <span>屏幕震动</span>
+                        </label>
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="particleEffects" checked>
+                            <span class="checkmark"></span>
+                            <span>粒子特效</span>
+                        </label>
+                    </div>
+                </section>
+                
+                <!-- 调试选项 -->
+                <section class="configSection">
+                    <h3 class="sectionTitle">
+                        <span class="sectionIcon">🔧</span>
+                        调试选项
+                    </h3>
+                    
+                    <div class="checkboxGroup">
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="godMode">
+                            <span class="checkmark"></span>
+                            <span>无敌模式 (G键)</span>
+                        </label>
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="showDebugInfo">
+                            <span class="checkmark"></span>
+                            <span>调试信息</span>
+                        </label>
+                        <label class="checkboxLabel">
+                            <input type="checkbox" id="slowMotion">
+                            <span class="checkmark"></span>
+                            <span>慢动作 (0.5x)</span>
+                        </label>
+                    </div>
+                </section>
+                
+                <footer class="sidebarFooter">
+                    <button id="saveConfigBtn" class="saveBtn" type="button">保存设置</button>
+                    <button id="resetConfigBtn" class="resetBtn" type="button">恢复默认</button>
+                </footer>
+            </div>
+        </aside>
+
+        <!-- 主游戏区域 -->
+        <main id="gameContainer">
+            <canvas id="gameCanvas" width="600" height="800"></canvas>
+            
+            <!-- UI层 -->
+            <div id="uiLayer">
+                <!-- 左上角：分数和状态 -->
+                <div class="hudPanel" id="hudTopLeft">
+                    <div class="hudSection">
+                        <div class="scoreDisplay">
+                            <span class="label">SCORE</span>
+                            <span id="scoreValue" class="value">00000000</span>
+                        </div>
+                        <div class="scoreDisplay">
+                            <span class="label">HI-SCORE</span>
+                            <span id="hiScoreValue" class="value">00000000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hudSection">
+                        <div class="resourceDisplay">
+                            <span class="label">PLAYER</span>
+                            <span id="lifeCount" class="resourceValue">★★★</span>
+                        </div>
+                        <div class="resourceDisplay">
+                            <span class="label">BOMB</span>
+                            <span id="bombCount" class="resourceValue">○○○</span>
+                        </div>
+                        <div class="resourceDisplay">
+                            <span class="label">POWER</span>
+                            <span id="powerValue" class="resourceValue">1.00</span>
+                        </div>
+                        <div class="resourceDisplay">
+                            <span class="label">GRAZE</span>
+                            <span id="grazeValue" class="resourceValue">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右上角：BOSS血条 -->
+                <div id="bossUI" class="bossPanel hidden">
+                    <div class="bossHeader">
+                        <span class="bossName" id="bossName">未知</span>
+                        <span class="bossTitle" id="bossTitle">未知描述...</span>
+                    </div>
+                    <div class="bossHealthBar">
+                        <div class="healthFill" id="bossHealthFill"></div>
+                        <div class="healthMarkers"></div>
+                    </div>
+                    <div class="spellCardInfo" id="spellCardInfo"></div>
+                </div>
+                
+                <!-- 鼓点可视化 -->
+                <div id="drumVisualizer">
+                    <div class="drumTrack">
+                        <div class="drumLabel">KICK</div>
+                        <div class="drumBar" id="kickBar"></div>
+                    </div>
+                    <div class="drumTrack">
+                        <div class="drumLabel">SNARE</div>
+                        <div class="drumBar" id="snareBar"></div>
+                    </div>
+                    <div class="drumTrack">
+                        <div class="drumLabel">HIHAT</div>
+                        <div class="drumBar" id="hihatBar"></div>
+                    </div>
+                </div>
+                
+                <!-- 音乐信息 -->
+                <div id="musicInfo" class="musicPanel hidden">
+                    <div class="musicIcon">♪</div>
+                    <div class="musicDetails">
+                        <div class="musicName" id="musicName">--</div>
+                    </div>
+                </div>
+                
+                <!-- FPS显示 -->
+                <div id="fpsDisplay">
+                    <span id="fpsValue">60</span>
+                </div>
+            </div>
+            
+            <!-- 开始菜单 -->
+            <div id="startMenu" class="menuOverlay">
+                <div class="menuFrame">
+                    <header class="menuHeader">
+                        <h1 class="gameTitle">东方STG</h1>
+                        <p class="subtitle">节奏弹幕 ~ 地灵殿篇</p>
+                    </header>
+                    
+                    <nav class="menuOptions">
+                        <button id="startBtn" class="menuBtn primary" type="button">
+                            <span class="btnGlow"></span>
+                            <span class="btnText">开始游戏</span>
+                        </button>
+                    </nav>
+                    
+                    <div class="controlsInfo">
+                        <h4>操作说明</h4>
+                        <div class="controlGrid">
+                            <div class="controlItem">
+                                <kbd>↑↓←→</kbd>
+                                <span>移动</span>
+                            </div>
+                            <div class="controlItem">
+                                <kbd>Z</kbd>
+                                <span>射击</span>
+                            </div>
+                            <div class="controlItem">
+                                <kbd>X</kbd>
+                                <span>炸弹</span>
+                            </div>
+                            <div class="controlItem">
+                                <kbd>Shift</kbd>
+                                <span>低速模式</span>
+                            </div>
+                            <div class="controlItem">
+                                <kbd>Esc</kbd>
+                                <span>暂停</span>
+                            </div>
+                            <div class="controlItem">
+                                <kbd>⚙️</kbd>
+                                <span>设置</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 游戏结束画面 -->
+            <div id="gameOverScreen" class="menuOverlay hidden">
+                <div class="menuFrame">
+                    <h2 class="menuTitle gameOver">GAME OVER</h2>
+                    <div class="finalScore">
+                        <span class="scoreLabel">最终得分</span>
+                        <span id="finalScoreValue" class="scoreNumber">0</span>
+                    </div>
+                    <nav class="menuOptions vertical">
+                        <button id="restartBtn" class="menuBtn primary" type="button">
+                            <span class="btnText">重新开始</span>
+                        </button>
+                        <button id="menuBtn" class="menuBtn" type="button">
+                            <span class="btnText">返回主菜单</span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- 暂停菜单 -->
+            <div id="pauseMenu" class="menuOverlay hidden">
+                <div class="menuFrame">
+                    <h2 class="menuTitle pause">PAUSE</h2>
+                    <nav class="menuOptions vertical">
+                        <button id="resumeBtn" class="menuBtn primary" type="button">
+                            <span class="btnText">继续游戏</span>
+                        </button>
+                        <button id="pauseMenuBtn" class="menuBtn" type="button">
+                            <span class="btnText">返回主菜单</span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 游戏脚本 -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

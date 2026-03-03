@@ -1,0 +1,18 @@
+{
+    "version": "0.0.1",
+    "name": "古明地觉",
+    "title": "怨灵也为之惧怯的少女",
+    "server_base_url": "http://127.0.0.1:9123/",
+    "danmaku_script_path": "satori.json",
+    "action_anim_path": "anim.json",
+    "conversion": [
+        [
+            {"boss": "是谁闯入了我的领地？", "player": "眼前这个人是谁？", 
+            "boss_emoji": "satori_angry.png", "player_emoji": "player_normal.png", "stat": "say", "duration": 3},
+            {"player": "...", "boss": "...", 
+            "boss_emoji": "satori_normal.png", "player_emoji": "player_normal.png", "stat": "say", "duration": 2},
+            {"stat": "fight"}
+        ]
+    ],
+    "music_path": "output.wav"
+}
